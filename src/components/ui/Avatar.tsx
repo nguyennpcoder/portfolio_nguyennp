@@ -33,7 +33,7 @@ export function Avatar({
         className="absolute inset-0 rounded-full bg-[linear-gradient(135deg,#b18cff,#8c45ff_45%,#3b3bff)]"
       />
       <Image
-        src="/avatar.jpg"
+        src="/avatar.png"
         alt={`Portrait of ${profile.name}`}
         width={720}
         height={720}

@@ -69,9 +69,10 @@ xuất ảnh về `public/projects/` rồi khai báo `image.src` / `image.alt` (
 
 CV tải về nằm ở `public/cv.pdf`; đổi file thì cập nhật `cv.file` / `cv.fileName`.
 
-Ảnh chân dung: `public/avatar.jpg` (720×720, ~72 KB) dùng ở navbar, hero và footer qua
+Ảnh chân dung: `public/avatar.png` (720×720, ~199 KB) dùng ở navbar, hero và footer qua
 `components/ui/Avatar.tsx`. Bản gốc dung lượng lớn nằm ở `assets/avatar-source.png`
-(không ship ra `out/`). Thay ảnh thì xuất lại về đúng 720×720 JPEG để giữ tải trang nhẹ.
+(không ship ra `out/`). Thay ảnh thì xuất lại về đúng 720×720 PNG (palette 256 màu, nén tối đa)
+để giữ tải trang nhẹ.
 
 ## Design system
 

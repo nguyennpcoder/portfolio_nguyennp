@@ -52,7 +52,7 @@ export const metadata: Metadata = {
       "Java 17 / Spring Boot 3 backend, React & Next.js frontend. Secure APIs, event-driven architecture and multi-gateway payments.",
     type: "website",
     locale: "en_US",
-    images: [{ url: "/avatar.jpg", width: 720, height: 720, alt: profile.name }],
+    images: [{ url: "/avatar.png", width: 720, height: 720, alt: profile.name }],
   },
 };
 

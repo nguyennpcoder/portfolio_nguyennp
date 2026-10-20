@@ -1,26 +1,210 @@
 @import "tailwindcss";
 
+/* ------------------------------------------------------------------ */
+/*  Design system — palette adopted from SKILL.md / DESIGN.md:         */
+/*                                                                    */
+/*    surface.base    #000000     text.primary    #ffffff              */
+/*    surface.strong  #3d3d3d     text.secondary  #0000ee              */
+/*    surface.raised  #8c45ff                                          */
+/*                                                                    */
+/*  Only the colour scheme is taken from those files — typography,      */
+/*  spacing, radii, motion and layout are unchanged.                   */
+/*                                                                    */
+/*  #0000ee only reaches 2.2:1 on a #000000 canvas, so that hue is      */
+/*  lifted for graphics (#3b3bff) and for text (#8fa2ff) so the UI      */
+/*  still clears WCAG AA. Likewise #8c45ff is a fill colour; text on    */
+/*  black uses its lighter tint (#b18cff).                             */
+/* ------------------------------------------------------------------ */
+@theme {
+  /* Primitive: the three surfaces straight from the source palette */
+  --color-base: #000000; /* surface.base */
+  --color-strong: #3d3d3d; /* surface.strong */
+  --color-raised: #8c45ff; /* surface.raised */
+
+  /* Primitive: neutral ramp between #000000 and #3d3d3d */
+  --color-neutral-950: #000000;
+  --color-neutral-900: #0b0b0f;
+  --color-neutral-800: #14141a;
+  --color-neutral-700: #1c1c24;
+  --color-neutral-600: #26262f;
+  --color-neutral-500: #3d3d3d;
+  --color-neutral-400: #6b6b73;
+  --color-neutral-300: #a1a1aa;
+  --color-neutral-200: #d4d4d8;
+
+  /* Primitive: violet ramp anchored on #8c45ff */
+  --color-violet-200: #e9dcff;
+  --color-violet-300: #c9a8ff;
+  --color-violet-400: #b18cff;
+  --color-violet-500: #8c45ff;
+  --color-violet-600: #7a36f0;
+  --color-violet-700: #5f24c4;
+
+  /* Primitive: azure ramp anchored on #0000ee */
+  --color-azure-300: #9db0ff;
+  --color-azure-400: #8fa2ff;
+  --color-azure-500: #5b5bff;
+  --color-azure-600: #3b3bff; /* lifted #0000ee, graphics only */
+  --color-azure-700: #0000ee; /* source anchor */
+
+  /* Semantic tokens — use THESE in components, never raw hex */
+  --color-background: #000000;
+  --color-background-subtle: #0b0b0f;
+  --color-surface: #1c1c24;
+  --color-surface-muted: #26262f;
+  --color-surface-strong: #3d3d3d;
+  --color-foreground: #ffffff;
+  --color-muted-foreground: #a1a1aa;
+  --color-primary: #8c45ff; /* fill: buttons, dots, active states */
+  --color-primary-hover: #7a36f0; /* fill on hover (white text still 5.8:1) */
+  --color-primary-text: #b18cff; /* violet that is readable on black */
+  --color-primary-tint: #1c1130; /* recessed violet panel */
+  --color-on-primary: #ffffff;
+  --color-accent: #3b3bff;
+  --color-accent-text: #8fa2ff;
+  --color-border: #2b2b34;
+  --color-line-strong: #3d3d3d;
+  --color-ring: #8c45ff;
+
+  /* Typography */
+  --font-display: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
+
+  /* Radius */
+  --radius-card: 20px;
+  --radius-pill: 999px;
+
+  /* On a black canvas depth comes from a violet glow plus an inner
+     highlight, not from a cast shadow. */
+  --shadow-soft: 0 1px 2px rgba(0, 0, 0, 0.6), 0 8px 24px rgba(0, 0, 0, 0.45);
+  --shadow-lift: 0 1px 2px rgba(0, 0, 0, 0.6), 0 18px 44px rgba(140, 69, 255, 0.28);
+  --shadow-glass: 0 10px 34px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+/* ------------------------------------------------------------------ */
+/*  Base                                                              */
+/* ------------------------------------------------------------------ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: dark;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  /* `clip` (not `hidden`) — avoids creating a scroll container that would
+     break ScrollTrigger pinning while still stopping horizontal scroll. */
+  overflow-x: clip;
+}
+
+::selection {
+  background: color-mix(in oklab, var(--color-primary) 40%, transparent);
+  color: var(--color-foreground);
+}
+
+/* ------------------------------------------------------------------ */
+/*  Ambient backdrop — violet and azure light bleeding into black      */
+/* ------------------------------------------------------------------ */
+.ambient-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(900px 620px at 12% -8%, rgba(140, 69, 255, 0.22) 0%, transparent 62%),
+    radial-gradient(760px 520px at 92% 2%, rgba(59, 59, 255, 0.16) 0%, transparent 60%),
+    radial-gradient(900px 700px at 50% 108%, rgba(140, 69, 255, 0.13) 0%, transparent 62%),
+    #000000;
+}
+
+/* Frosted glass surface — nav, panels, project cards */
+.glass {
+  background: rgba(255, 255, 255, 0.045);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  backdrop-filter: blur(16px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: var(--shadow-glass);
+}
+
+.glass-strong {
+  background: rgba(255, 255, 255, 0.075);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  backdrop-filter: blur(20px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: var(--shadow-glass);
+}
+
+/* Thin gradient border for featured cards */
+.ring-gradient {
+  background:
+    linear-gradient(var(--color-surface), var(--color-surface)) padding-box,
+    linear-gradient(135deg, #b18cff, #8c45ff 45%, #3b3bff) border-box;
+  border: 1px solid transparent;
+}
+
+/* Sparing text gradient for one or two key words */
+.text-accent-gradient {
+  background: linear-gradient(92deg, #ffffff 0%, #c9a8ff 42%, #8fa2ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Thin hairline divider */
+.hairline {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-line-strong), transparent);
+}
+
+/* Edge fade for marquees */
+.mask-x {
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+
+/* ------------------------------------------------------------------ */
+/*  Lenis smooth scroll                                               */
+/* ------------------------------------------------------------------ */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Reduced motion                                                    */
+/* ------------------------------------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .ambient-canvas {
+    background: var(--color-background);
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
 }

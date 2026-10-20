@@ -20,6 +20,9 @@
 # production
 /build
 
+# large source assets (only the optimized copies in public/ are shipped)
+/assets/
+
 # misc
 .DS_Store
 *.pem

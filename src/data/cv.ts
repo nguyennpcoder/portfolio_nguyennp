@@ -115,8 +115,8 @@ export const skillGroups: SkillGroup[] = [
     id: "payments",
     label: "Payments",
     icon: "credit",
-    items: ["SePay", "VNPay", "MoMo", "ZaloPay"],
-    note: "SePay: multi-gateway integration, async transaction handling",
+    items: ["VNPay", "MoMo", "ZaloPay", "SePay"],
+    note: "Multi-gateway integration, async transaction handling",
   },
   {
     id: "devops",

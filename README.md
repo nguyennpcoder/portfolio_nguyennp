@@ -55,7 +55,7 @@ Mọi nội dung nằm ở `src/data/cv.ts` — sửa trực tiếp, không cầ
 - `profile` — tên, chức danh, email, điện thoại, GitHub (`githubUrl` / `githubHandle`),
   LinkedIn (`linkedinUrl` / `linkedinHandle`), đoạn giới thiệu
 - `skillGroups` — 8 nhóm kỹ năng (nhóm nào có mô tả dài hơn một chip thì để ở `note`,
-  hiện thành dòng chú thích nhỏ dưới hàng chip — ví dụ `SePay: multi-gateway integration…`)
+  hiện thành dòng chú thích nhỏ dưới hàng chip — ví dụ `Multi-gateway integration…`)
 - `projects` — 5 dự án: `tags` + `highlights`, kèm `image` (ảnh đại diện), `repos`
   (link GitHub FE/BE; để `[]` khi source private) và `demo` (link live, bỏ trống nếu không có)
 - `education` / `certificates` / `interests` / `stats` / `navItems`

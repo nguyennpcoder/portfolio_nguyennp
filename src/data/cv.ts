@@ -41,7 +41,7 @@ export const profile = {
   linkedinUrl: "https://www.linkedin.com/in/nguyennp-coder/",
   handle: "nguyennpcoder",
   about:
-    "Fullstack Developer with hands-on experience building 5+ production-grade web applications end-to-end using Java 17 / Spring Boot 3 on the backend and React, Next.js 14, and Angular 17 on the frontend. Skilled in designing secure REST APIs (JWT/OAuth2, RBAC), event-driven architectures with Kafka and Redis, and multi-gateway payment integrations (VNPay, MoMo, ZaloPay, SePay), alongside responsive SSR/SEO UIs and real-time interfaces over WebSocket. Comfortable owning features from database schema and API design through to UI and production deployment. Passionate about clean, maintainable, testable code and building reliable systems for fintech-scale workloads.",
+    "Full-Stack Developer building end-to-end web applications with Java 17 / Spring Boot 3 on the backend and React, Next.js 14, and Angular 17 on the frontend. Strongest in secure REST API design (JWT / OAuth2, RBAC), event-driven services with Kafka and Redis, and multi-gateway payment integrations (VNPay, MoMo, ZaloPay, SePay). Owns a feature from database schema and API design through to SSR/SEO UI and Docker-based deployment, including real-time functionality over WebSocket (STOMP/SockJS).",
 } as const;
 
 export type SkillGroup = {
@@ -70,7 +70,7 @@ export const skillGroups: SkillGroup[] = [
       "Spring Data JPA / Hibernate",
       "Spring Security",
       "Spring AOP",
-      "REST API",
+      "REST APIs",
       "WebSocket (STOMP/SockJS)",
       "Apache Kafka",
     ],
@@ -85,17 +85,16 @@ export const skillGroups: SkillGroup[] = [
       "Angular 17",
       "Redux Toolkit",
       "RxJS",
-      "Ant Design",
       "Tailwind CSS",
+      "Ant Design",
       "Bootstrap",
       "SSR & SEO",
       "Responsive / mobile-first UI",
-      "Real-time UI (WebSocket)",
     ],
   },
   {
     id: "database",
-    label: "Database & Caching",
+    label: "Data & Caching",
     icon: "database",
     items: ["MySQL", "PostgreSQL", "Redis", "Flyway (schema migrations)"],
   },
@@ -107,7 +106,7 @@ export const skillGroups: SkillGroup[] = [
       "JWT",
       "OAuth2 / OIDC",
       "RBAC",
-      "SMS / email verification",
+      "SMS & email verification",
       "Checksum validation",
     ],
   },
@@ -136,7 +135,7 @@ export const skillGroups: SkillGroup[] = [
     id: "core",
     label: "Core CS",
     icon: "stack",
-    items: ["Data Structures", "Algorithms", "System Design", "RESTful Architecture"],
+    items: ["Data Structures", "Algorithms", "System Design"],
   },
 ];
 
@@ -146,13 +145,13 @@ export const projects: Project[] = [
     name: "Airbnb Booking Platform",
     role: "Fullstack Developer",
     period: "Sep 2025 – Jan 2026",
-    tags: ["Next.js 14", "Spring Boot 3", "WebSocket", "Payments"],
+    tags: ["Spring Boot 3", "Next.js 14", "WebSocket", "JWT", "Payments"],
     highlights: [
-      "Built an end-to-end booking platform with a Spring Boot 3 (Java 17) REST API and a responsive Next.js 14 frontend with SSR and SEO optimization.",
-      "Designed secure authentication and RBAC using Spring Security, JWT, SMS verification, and email confirmation.",
-      "Implemented real-time messaging and booking notifications via WebSocket (STOMP) and SockJS.",
-      "Integrated multi-gateway payments (VNPay, MoMo, ZaloPay, SePay), QR check-in, and analytics dashboards.",
-      "Developed booking/scheduling logic with availability conflict detection and automated status updates.",
+      "Built an end-to-end homestay booking platform: a Spring Boot 3 REST API with secure authentication and a server-rendered Next.js 14 frontend optimised for SEO.",
+      "Delivered real-time messaging and booking notifications over WebSocket (STOMP) and SockJS.",
+      "Implemented booking and scheduling logic with availability conflict detection and automated status updates — the most complex piece of the system.",
+      "Integrated four payment gateways (VNPay, MoMo, ZaloPay, SePay) with QR check-in and analytics dashboards.",
+      "Secured the API with Spring Security, JWT, RBAC, SMS verification, and email confirmation.",
     ],
     image: {
       src: "/projects/airbnb.jpg",
@@ -175,13 +174,13 @@ export const projects: Project[] = [
     name: "Audi Service Booking",
     role: "Fullstack Developer",
     period: "Apr 2025 – Oct 2025",
-    tags: ["Spring Boot 3", "React (Vite)", "MySQL", "Redis"],
+    tags: ["Spring Boot 3", "Spring Data JPA / Hibernate", "React (Vite)", "MySQL", "Redis"],
     highlights: [
-      "Developed the backend with Spring Boot 3, Spring Data JPA/Hibernate, MySQL, and Redis, with secure checksum validation and async transaction handling.",
-      "Built the frontend with React (Vite), including a real-time scheduling interface with conflict detection and slot management.",
-      "Implemented RBAC authentication using Spring Security and JWT.",
-      "Integrated VNPay, MoMo, and ZaloPay checkout flows and a customer-support chat feature.",
+      "Built the backend service with Spring Boot 3, MySQL, and Redis, including checksum validation and asynchronous transaction handling.",
+      "Built a React (Vite) frontend with a real-time scheduling interface covering slot management and conflict detection.",
       "Automated PDF invoice generation and revenue dashboard reporting.",
+      "Integrated VNPay, MoMo, and ZaloPay checkout flows plus a customer-support chat.",
+      "Implemented RBAC authentication using Spring Security and JWT.",
     ],
     image: {
       src: "/projects/audi.jpg",
@@ -195,15 +194,15 @@ export const projects: Project[] = [
   },
   {
     slug: "apple-clone-ecommerce",
-    name: "Apple Clone (E-commerce)",
+    name: "Apple-Style E-commerce Storefront",
     role: "Fullstack Developer",
     period: "Aug 2024 – Dec 2024",
-    tags: ["Spring Boot", "React (Vite)", "OAuth2", "Redis", "Docker"],
+    tags: ["Spring Boot", "React (Vite)", "OAuth2 / OIDC", "Redis", "Docker"],
     highlights: [
-      "Built a full e-commerce stack with a Spring Boot backend and a React (Vite) storefront following a scalable, maintainable component architecture.",
-      "Implemented secure authentication with Spring Security, JWT, OAuth2 OIDC, and RBAC.",
-      "Optimized product retrieval and page performance using Redis caching to reduce database load.",
-      "Containerized the stack with Docker and Docker Compose for consistent deployment environments.",
+      "Built a full e-commerce stack — Spring Boot backend and React (Vite) storefront — with reusable components shared across product, cart, and checkout flows.",
+      "Reduced database load by caching product retrieval in Redis.",
+      "Containerised the stack with Docker and Docker Compose for consistent environments.",
+      "Secured authentication with Spring Security, JWT, OAuth2 / OIDC, and RBAC.",
     ],
     image: {
       src: "/projects/apple.jpg",
@@ -218,12 +217,12 @@ export const projects: Project[] = [
     name: "Book Views Online (E-commerce)",
     role: "Backend Developer",
     period: "Apr 2024 – Aug 2024",
-    tags: ["Angular 17", "Spring Boot 3", "Kafka", "Flyway"],
+    tags: ["Spring Boot 3", "Angular 17 SSR", "Apache Kafka", "Redis", "Flyway"],
     highlights: [
-      "Built a scalable e-commerce platform with Spring Boot 3 (Java 17) and Angular 17 SSR for performance and SEO.",
-      "Implemented JWT/OAuth2 authentication with Spring Security and RBAC.",
-      "Designed an event-driven architecture with Apache Kafka and Redis caching to reduce database load and improve throughput.",
+      "Designed an event-driven architecture with Apache Kafka and Redis caching, cutting database load and raising throughput on the ordering flow.",
+      "Built a scalable e-commerce platform on Spring Boot 3 (Java 17) with an Angular 17 SSR frontend for performance and SEO.",
       "Managed MySQL schema migrations with Flyway and documented REST APIs with OpenAPI (Swagger).",
+      "Implemented JWT / OAuth2 authentication with Spring Security and RBAC.",
     ],
     image: {
       src: "/projects/bookview.jpg",
@@ -240,12 +239,12 @@ export const projects: Project[] = [
     name: "VTI Store (B2C E-commerce)",
     role: "Fullstack Developer",
     period: "Jun 2023 – Feb 2024",
-    tags: ["Spring Boot", "React 18", "OAuth2", "Flyway"],
+    tags: ["Spring Boot", "React 18", "OAuth2", "Redis", "MySQL", "Flyway", "Docker"],
     highlights: [
-      "Built a B2C e-commerce application end-to-end with a Spring Boot backend and a React 18 storefront supporting product browsing, checkout, and order processing.",
-      "Implemented secure authentication using Spring Security, JWT, OAuth2, and RBAC.",
-      "Consumed RESTful APIs with Redis-backed caching to improve search performance.",
-      "Managed MySQL migrations with Flyway and containerized environments with Docker.",
+      "Built a B2C e-commerce application end-to-end: a Spring Boot backend and a React 18 storefront covering product browsing, checkout, and order processing.",
+      "Integrated REST APIs with Redis-backed caching to speed up product search.",
+      "Managed MySQL migrations with Flyway and containerised environments with Docker.",
+      "Implemented authentication with Spring Security, JWT, OAuth2, and RBAC.",
     ],
     image: {
       src: "/projects/vti.jpg",
@@ -282,16 +281,16 @@ export const interests = [
 
 /** Small, CV-derived facts — no invented metrics. */
 export const stats = [
-  { value: 5, suffix: "+", label: "Production-grade web apps" },
-  { value: 5, suffix: "", label: "End-to-end projects" },
+  { value: 5, suffix: "", label: "Full-stack projects" },
   { value: 4, suffix: "", label: "Payment gateways integrated" },
   { value: 8, suffix: "", label: "Skill areas" },
+  { value: 4, suffix: "", label: "Years of IT study" },
 ];
 
 /** The CV PDF lives in `public/` so it ships with the static export. */
 export const cv = {
-  file: "/cv.pdf",
-  fileName: "CV-NguyenPhuocNguyen-FullstackDeveloper.pdf",
+  file: "/CV_NguyenPhuocNguyen_FullstackDeveloper.pdf",
+  fileName: "CV_NguyenPhuocNguyen_FullstackDeveloper.pdf",
 } as const;
 
 export const navItems = [

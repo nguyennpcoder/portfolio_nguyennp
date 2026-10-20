@@ -67,7 +67,7 @@ bản gốc độ phân giải cao ở `assets/projects-src/` (không ship ra `o
 xuất ảnh về `public/projects/` rồi khai báo `image.src` / `image.alt` (alt phải mô tả nội dung
 ảnh, không viết "ảnh dự án").
 
-CV tải về nằm ở `public/cv.pdf`; đổi file thì cập nhật `cv.file` / `cv.fileName`.
+CV tải về nằm trong `public/` (hiện là `CV_NguyenPhuocNguyen_FullstackDeveloper.pdf`); đổi file thì cập nhật `cv.file` / `cv.fileName`.
 
 Ảnh chân dung: `public/avatar.png` (720×720, ~199 KB) dùng ở navbar, hero và footer qua
 `components/ui/Avatar.tsx`. Bản gốc dung lượng lớn nằm ở `assets/avatar-source.png`

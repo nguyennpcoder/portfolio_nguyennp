@@ -172,3 +172,39 @@ Responsive:    chạy lại toàn bộ phép đo ở 800×928 (bảng ngang): 89
 ```
 
 Chi tiết hơn xem `PROMPT_NEXTJS_PORTFOLIO.md` (spec + Definition of Done).
+
+## Triển khai
+
+Repo: `https://github.com/nguyennpcoder/portfolio_nguyennp` (nhánh `main`).
+
+Bản build là static export (`out/`) nên Vercel không cần thêm cấu hình:
+
+1. Vercel → **Add New → Project → Import** repo `portfolio_nguyennp`.
+2. Framework Preset để **Next.js**: Vercel tự chạy `npm run build` và nhận thư mục `out/`
+   (không cần đặt Output Directory).
+3. Sau lần deploy đầu: **Project → Settings → Domains → Add** `nguyennpcoder.is-a.dev`,
+   tắt tuỳ chọn "Redirect to www", rồi bấm **Continue manually** và copy giá trị TXT
+   verification mà Vercel hiển thị.
+
+Trỏ subdomain `is-a.dev` (gửi PR vào [is-a-dev/register](https://github.com/is-a-dev/register)):
+
+`domains/nguyennpcoder.json`
+
+```json
+{
+  "owner": { "username": "nguyennpcoder" },
+  "records": { "A": ["216.198.79.1"] }
+}
+```
+
+`domains/_vercel.nguyennpcoder.json`
+
+```json
+{
+  "owner": { "username": "nguyennpcoder" },
+  "records": { "TXT": "<chuỗi TXT Vercel cấp>" }
+}
+```
+
+Thay bản ghi `A` bằng đúng giá trị Vercel hiển thị (một số project vẫn dùng `76.76.21.21`),
+sau đó chờ PR merge — DNS cập nhật trong vài phút và Vercel tự cấp certificate.

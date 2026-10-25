@@ -3,6 +3,7 @@ import { Inter, JetBrains_Mono, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { education, profile } from "@/data/cv";
 import { SmoothScrollProvider } from "@/components/providers/SmoothScrollProvider";
+import { HydrationSignal } from "@/components/providers/HydrationSignal";
 import { CosmicField } from "@/components/ui/CosmicField";
 
 const spaceGrotesk = Space_Grotesk({
@@ -96,13 +97,80 @@ const STRUCTURED_DATA = {
   ],
 };
 
+/**
+ * Browser extensions can mutate the DOM before React hydrates (Bing stamps
+ * `bis_skin_checked` / `bis_register` / `__processed_*__` on every node it
+ * touches). React cannot patch an attribute mismatch, so it logs the
+ * "A tree hydrated but some attributes ... didn't match" error even though the
+ * app itself renders identically on both sides.
+ *
+ * This guard removes those attributes while the page hydrates and disconnects
+ * as soon as `HydrationSignal` reports that React is done, so it never touches
+ * the DOM during normal interaction. The timeout is a safety net in case
+ * hydration never signals (e.g. JS error before the first effect).
+ */
+const EXTENSION_ATTR_GUARD = `(function () {
+  var PATTERN = /^(bis_|__processed_)/i;
+  var CAP_MS = 5000;
+  var observer = null;
+  var timer = 0;
+
+  function strip(node) {
+    if (!node || node.nodeType !== 1) return;
+    var attrs = node.attributes;
+    for (var i = attrs.length - 1; i >= 0; i--) {
+      if (PATTERN.test(attrs[i].name)) node.removeAttribute(attrs[i].name);
+    }
+    for (var child = node.firstElementChild; child; child = child.nextElementSibling) {
+      strip(child);
+    }
+  }
+
+  function stop() {
+    if (observer) {
+      observer.disconnect();
+      observer = null;
+    }
+    clearTimeout(timer);
+    window.removeEventListener("app:hydrated", stop);
+  }
+
+  strip(document.documentElement);
+  observer = new MutationObserver(function (records) {
+    for (var i = 0; i < records.length; i++) {
+      var record = records[i];
+      if (record.type === "attributes") {
+        if (record.attributeName && PATTERN.test(record.attributeName)) {
+          record.target.removeAttribute(record.attributeName);
+        }
+      } else {
+        for (var j = 0; j < record.addedNodes.length; j++) {
+          strip(record.addedNodes[j]);
+        }
+      }
+    }
+  });
+  observer.observe(document.documentElement, {
+    subtree: true,
+    attributes: true,
+    childList: true,
+  });
+  window.addEventListener("app:hydrated", stop);
+  timer = setTimeout(stop, CAP_MS);
+})();`;
+
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
+      // Extensions (Grammarly, ColorZilla, dark-mode tools…) inject attributes
+      // on <html>/<body> before hydration; that is outside the app's control.
+      suppressHydrationWarning
       className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
-      <body className="relative min-h-full">
+      <body className="relative min-h-full" suppressHydrationWarning>
+        <script dangerouslySetInnerHTML={{ __html: EXTENSION_ATTR_GUARD }} />
+        <HydrationSignal />
         <div className="ambient-canvas" aria-hidden="true" />
         {/* Site-wide deep space: star field + pointer-chasing swarm everywhere,
             and the half planet from the Education section down. */}

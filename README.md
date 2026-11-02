@@ -172,7 +172,7 @@ Responsive:    chạy lại toàn bộ phép đo ở 800×928 (bảng ngang): 89
 Ảnh dự án:     21 MB PNG gốc → 764 KB JPEG trong out/projects/ (1400px, quality 68)
 ```
 
-Chi tiết hơn xem `PROMPT_NEXTJS_PORTFOLIO.md` (spec + Definition of Done).
+Ghi chú: file spec nội bộ (spec + Definition of Done) được giữ cục bộ, không đưa lên repo.
 
 ## Triển khai
 

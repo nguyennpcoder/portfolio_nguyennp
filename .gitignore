@@ -42,3 +42,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local-only notes / specs (kept on disk, never published)
+/AGENTS.md
+/design.md
+/PROMPT_NEXTJS_PORTFOLIO.md
